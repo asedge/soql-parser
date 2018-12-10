@@ -85,14 +85,6 @@ class TestStatement < Minitest::Test
     assert_soql '1 IN (1, 2, 3)', SOQLParser::Statement::In.new(int(1), SOQLParser::Statement::InValueList.new([int(1), int(2), int(3)]))
   end
 
-  def test_not_between
-    assert_soql '2 NOT BETWEEN 1 AND 3', SOQLParser::Statement::Not.new(SOQLParser::Statement::Between.new(int(2), int(1), int(3)))
-  end
-
-  def test_between
-    assert_soql '2 BETWEEN 1 AND 3', SOQLParser::Statement::Between.new(int(2), int(1), int(3))
-  end
-
   def test_gte
     assert_soql '1 >= 1', SOQLParser::Statement::GreaterOrEquals.new(int(1), int(1))
   end

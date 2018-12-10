@@ -271,20 +271,6 @@ module SOQLParser
 
     end
 
-    class Between < Node
-
-      def initialize(left, min, max)
-        @left = left
-        @min = min
-        @max = max
-      end
-
-      attr_accessor :left
-      attr_accessor :min
-      attr_accessor :max
-
-    end
-
     class GreaterOrEquals < ComparisonPredicate
     end
 

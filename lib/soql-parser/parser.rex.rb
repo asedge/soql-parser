@@ -175,7 +175,6 @@ class SOQLParser::Parser < Racc::Parser
     AS
     FROM
     WHERE
-    BETWEEN
     AND
     NOT
     IN

@@ -10,7 +10,6 @@ inner
     AS
     FROM
     WHERE
-    BETWEEN
     AND
     NOT
     IN

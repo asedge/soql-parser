@@ -81,10 +81,6 @@ rule
   row_subquery
     : subquery
 
-  between_predicate
-    : row_value_constructor NOT BETWEEN row_value_constructor AND row_value_constructor { result = SOQLParser::Statement::Not.new(SOQLParser::Statement::Between.new(val[0], val[3], val[5])) }
-    | row_value_constructor BETWEEN row_value_constructor AND row_value_constructor { result = SOQLParser::Statement::Between.new(val[0], val[2], val[4]) }
-
   in_predicate
     : row_value_constructor NOT IN in_predicate_value { result = SOQLParser::Statement::Not.new(SOQLParser::Statement::In.new(val[0], val[3])) }
     | row_value_constructor IN in_predicate_value { result = SOQLParser::Statement::In.new(val[0], val[2]) }
@@ -137,7 +133,6 @@ rule
 
   predicate
     : comparison_predicate
-    | between_predicate
     | in_predicate
     | like_predicate
     | null_predicate

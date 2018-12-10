@@ -52,7 +52,6 @@ class TestParser < Minitest::Test
   def test_not
     assert_soql 'SELECT Id FROM User WHERE Id <> 1', 'SELECT Id FROM User WHERE NOT Id = 1'
     assert_soql 'SELECT Id FROM User WHERE Id NOT IN (1, 2, 3)', 'SELECT Id FROM User WHERE NOT Id IN (1, 2, 3)'
-    assert_soql 'SELECT Id FROM User WHERE Id NOT BETWEEN 1 AND 3', 'SELECT Id FROM User WHERE NOT Id BETWEEN 1 AND 3'
     assert_soql "SELECT Id FROM User WHERE Name NOT LIKE 'A%'", "SELECT Id FROM User WHERE NOT Name LIKE 'A%'"
 
     # Shouldn't negate subqueries
@@ -91,14 +90,6 @@ class TestParser < Minitest::Test
   def test_in
     assert_understands 'SELECT Id FROM User WHERE Id IN (1, 2, 3)'
     assert_understands 'SELECT Id FROM User WHERE Id IN (SELECT Id FROM User WHERE age = 18)'
-  end
-
-  def test_not_between
-    assert_understands 'SELECT Id FROM User WHERE Id NOT BETWEEN 1 AND 3'
-  end
-
-  def test_between
-    assert_understands 'SELECT Id FROM User WHERE Id BETWEEN 1 AND 3'
   end
 
   def test_gte
