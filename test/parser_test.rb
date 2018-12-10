@@ -241,6 +241,12 @@ class TestParser < Minitest::Test
     assert_understands 'SELECT Id FROM Opportunity WHERE CloseDate > LAST_N_FISCAL_YEARS:3'
   end
 
+  def test_escaped_characters
+    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%')
+    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%%')
+    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Bob\'s BBQ')
+  end
+
   # TODO
   # def test_with_filters
   #   assert_understands "SELECT Id FROM UserProfileFeed WITH UserId='005D0000001AamR' ORDER BY CreatedDate DESC, Id DESC LIMIT 20"
