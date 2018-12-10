@@ -104,9 +104,6 @@ rule
     : row_value_constructor IS NOT NULL { result = SOQLParser::Statement::Not.new(SOQLParser::Statement::Is.new(val[0], SOQLParser::Statement::Null.new)) }
     | row_value_constructor IS NULL { result = SOQLParser::Statement::Is.new(val[0], SOQLParser::Statement::Null.new) }
 
-  exists_predicate
-    : EXISTS table_subquery { result = SOQLParser::Statement::Exists.new(val[1]) }
-
 # constraints
   table_name
     : identifier { result = SOQLParser::Statement::Table.new(val[0]) }
@@ -136,7 +133,6 @@ rule
     | in_predicate
     | like_predicate
     | null_predicate
-    | exists_predicate
 
   comparison_predicate
     : row_value_constructor equals_operator row_value_constructor { result = SOQLParser::Statement::Equals.new(val[0], val[2]) }

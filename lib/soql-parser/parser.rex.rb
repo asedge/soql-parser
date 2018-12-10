@@ -194,7 +194,6 @@ class SOQLParser::Parser < Racc::Parser
     HAVING
     LIMIT
     USING
-    EXISTS # TODO: remove
     DESC
     SCOPE
     FIRST

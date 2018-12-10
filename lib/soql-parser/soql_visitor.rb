@@ -114,14 +114,6 @@ module SOQLParser
       search_condition('AND', o)
     end
 
-    def visit_Exists(o)
-      if @negated
-        "NOT EXISTS #{visit(o.table_subquery)}"
-      else
-        "EXISTS #{visit(o.table_subquery)}"
-      end
-    end
-
     def visit_Is(o)
       if @negated
         comparison('IS NOT', o)
@@ -148,14 +140,6 @@ module SOQLParser
 
     def visit_InValueList(o)
       "(#{arrayize(o.values)})"
-    end
-
-    def visit_Between(o)
-      if @negated
-        "#{visit(o.left)} NOT BETWEEN #{visit(o.min)} AND #{visit(o.max)}"
-      else
-        "#{visit(o.left)} BETWEEN #{visit(o.min)} AND #{visit(o.max)}"
-      end
     end
 
     def visit_GreaterOrEquals(o)

@@ -53,17 +53,6 @@ class TestParser < Minitest::Test
     assert_soql 'SELECT Id FROM User WHERE Id <> 1', 'SELECT Id FROM User WHERE NOT Id = 1'
     assert_soql 'SELECT Id FROM User WHERE Id NOT IN (1, 2, 3)', 'SELECT Id FROM User WHERE NOT Id IN (1, 2, 3)'
     assert_soql "SELECT Id FROM User WHERE Name NOT LIKE 'A%'", "SELECT Id FROM User WHERE NOT Name LIKE 'A%'"
-
-    # Shouldn't negate subqueries
-    assert_understands 'SELECT Id FROM User WHERE NOT EXISTS (SELECT Id FROM User WHERE Id = 1)'
-  end
-
-  def test_not_exists
-    assert_understands 'SELECT Id FROM User WHERE NOT EXISTS (SELECT Id FROM User)'
-  end
-
-  def test_exists
-    assert_understands 'SELECT Id FROM User WHERE EXISTS (SELECT Id FROM User)'
   end
 
   def test_is_not_null

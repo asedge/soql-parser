@@ -29,7 +29,6 @@ inner
     HAVING
     LIMIT
     USING
-    EXISTS # TODO: remove
     DESC
     SCOPE
     FIRST
