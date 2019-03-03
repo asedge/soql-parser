@@ -1,6 +1,6 @@
-module SQLParser
+module SOQLParser
 
-  class SQLVisitor
+  class SOQLVisitor
 
     def initialize
       @negated = false
@@ -8,20 +8,6 @@ module SQLParser
 
     def visit(node)
       node.accept(self)
-    end
-
-    def visit_Insert(o)
-      name = visit(o.table_reference)
-      columns = ' ' + visit(o.column_list) if o.column_list
-      values = ' VALUES ' + visit(o.in_value_list)
-      "INSERT INTO #{name}#{columns}#{values}"
-    end
-
-    def visit_DirectSelect(o)
-      [
-        o.query_expression,
-        o.order_by
-      ].compact.collect { |e| visit(e) }.join(' ')
     end
 
     def visit_OrderBy(o)
@@ -36,7 +22,7 @@ module SQLParser
       # FIXME: This feels like a hack
       initialize
 
-      "SELECT #{visit_all([o.list, o.table_expression].compact).join(' ')}"
+      "SELECT #{visit(o.list)}"
     end
 
     def visit_SelectList(o)
@@ -47,17 +33,16 @@ module SQLParser
       "DISTINCT(#{visit(o.column)})"
     end
 
-    def visit_All(o)
-      '*'
-    end
-
-    def visit_TableExpression(o)
+    def visit_Query(o)
       [
+        o.select_clause,
         o.from_clause,
+        o.using_scope_clause,
         o.where_clause,
         o.group_by_clause,
         o.having_clause,
-        o.limit_clause
+        o.order_by_clause,
+        o.limit_clause,
       ].compact.collect { |e| visit(e) }.join(' ')
     end
 
@@ -65,16 +50,36 @@ module SQLParser
       "FROM #{arrayize(o.tables)}"
     end
 
+    def visit_UsingScope(o)
+      "USING SCOPE #{o.scope}"
+    end
+
     def visit_OrderClause(o)
       "ORDER BY #{arrayize(o.columns)}"
     end
 
+    def visit_OrderColumn(o)
+      column = visit(o.column)
+      order = visit(o.order) if o.order
+      nulls_order = visit(o.nulls_order) if o.nulls_order
+
+      [column, order, nulls_order].compact.join(" ")
+    end
+
     def visit_Ascending(o)
-      "#{visit(o.column)} ASC"
+      "ASC"
     end
 
     def visit_Descending(o)
-      "#{visit(o.column)} DESC"
+      "DESC"
+    end
+
+    def visit_NullsFirst(o)
+      "NULLS FIRST"
+    end
+
+    def visit_NullsLast(o)
+      "NULLS LAST"
     end
 
     def visit_HavingClause(o)
@@ -109,14 +114,6 @@ module SQLParser
       search_condition('AND', o)
     end
 
-    def visit_Exists(o)
-      if @negated
-        "NOT EXISTS #{visit(o.table_subquery)}"
-      else
-        "EXISTS #{visit(o.table_subquery)}"
-      end
-    end
-
     def visit_Is(o)
       if @negated
         comparison('IS NOT', o)
@@ -141,20 +138,8 @@ module SQLParser
       end
     end
 
-    def visit_InColumnList(o)
-      "(#{arrayize(o.columns)})"
-    end
-
     def visit_InValueList(o)
       "(#{arrayize(o.values)})"
-    end
-
-    def visit_Between(o)
-      if @negated
-        "#{visit(o.left)} NOT BETWEEN #{visit(o.min)} AND #{visit(o.max)}"
-      else
-        "#{visit(o.left)} BETWEEN #{visit(o.min)} AND #{visit(o.max)}"
-      end
     end
 
     def visit_GreaterOrEquals(o)
@@ -198,43 +183,15 @@ module SQLParser
     end
 
     def visit_Count(o)
-      aggregate('COUNT', o)
+      "COUNT(#{visit(o.column) if o.column})"
     end
 
-    def visit_CrossJoin(o)
-      "#{visit(o.left)} CROSS JOIN #{visit(o.right)}"
-    end
-
-    def visit_InnerJoin(o)
-      qualified_join('INNER', o)
-    end
-
-    def visit_LeftJoin(o)
-      qualified_join('LEFT', o)
-    end
-
-    def visit_LeftOuterJoin(o)
-      qualified_join('LEFT OUTER', o)
-    end
-
-    def visit_RightJoin(o)
-      qualified_join('RIGHT', o)
-    end
-
-    def visit_RightOuterJoin(o)
-      qualified_join('RIGHT OUTER', o)
-    end
-
-    def visit_FullJoin(o)
-      qualified_join('FULL', o)
-    end
-
-    def visit_FullOuterJoin(o)
-      qualified_join('FULL OUTER', o)
+    def visit_Function(o)
+      "#{o.function}(#{visit(o.arguments)})"
     end
 
     def visit_Table(o)
-      o.names.map { |p| quote(p) }.join('.')
+      o.names.join('.')
     end
 
     def visit_QualifiedColumn(o)
@@ -242,11 +199,11 @@ module SQLParser
     end
 
     def visit_Column(o)
-      quote(o.name)
+      o.name
     end
 
     def visit_As(o)
-      "#{visit(o.value)} AS #{visit(o.column)}"
+      "#{visit(o.value)} #{visit(o.column)}"
     end
 
     def visit_Multiply(o)
@@ -289,16 +246,20 @@ module SQLParser
       'NULL'
     end
 
-    def visit_CurrentUser(o)
-      'CURRENT_USER'
-    end
-
     def visit_DateTime(o)
-      "'%s'" % escape(o.value.strftime('%Y-%m-%d %H:%M:%S'))
+      o.value
     end
 
     def visit_Date(o)
-      "DATE '%s'" % escape(o.value.strftime('%Y-%m-%d'))
+      o.value
+    end
+
+    def visit_DateLiteral(o)
+      if o.arg
+        "#{o.literal}:#{o.arg}"
+      else
+        o.literal
+      end
     end
 
     def visit_String(o)
@@ -324,10 +285,6 @@ module SQLParser
       yield
     ensure
       @negated = false
-    end
-
-    def quote(str)
-      "`#{str}`"
     end
 
     def escape(str)
@@ -356,10 +313,6 @@ module SQLParser
 
     def aggregate(function_name, o)
       "#{function_name}(#{visit(o.column)})"
-    end
-
-    def qualified_join(join_type, o)
-      "#{visit(o.left)} #{join_type} JOIN #{visit(o.right)} #{visit(o.search_condition)}"
     end
 
   end
