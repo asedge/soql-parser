@@ -27,6 +27,7 @@ rule
   derived_column
     : value_expression column_name { result = SOQLParser::Statement::As.new(val[0], val[1]) }
     | value_expression
+    | subquery
 
   from_clause
     : FROM table_references { result = SOQLParser::Statement::FromClause.new(val[1]) }

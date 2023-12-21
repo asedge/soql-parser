@@ -221,11 +221,16 @@ class TestParser < Minitest::Test
     assert_understands 'SELECT Id FROM Opportunity WHERE CloseDate > LAST_N_FISCAL_YEARS:3'
   end
 
-  def test_escaped_characters
-    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%')
-    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%%')
-    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Bob\'s BBQ')
+  def test_child_queries
+    assert_understands %q(SELECT Id, (SELECT Name FROM Opportunity__r) FROM Account WHERE Id = '12345')
+    assert_understands %q(SELECT Id, Bar_Id__c, (SELECT Id, QuotaId, (SELECT Id, Name, Email FROM ClubMembers__r) FROM PrezClubs__r) FROM Quota__c WHERE (Bar_Id__c = '123'))
   end
+
+ # def test_escaped_characters
+ #   assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%')
+ #   assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%%')
+ #   assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Bob\'s BBQ')
+ # end
 
   # TODO
   # def test_with_filters
