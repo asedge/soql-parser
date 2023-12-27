@@ -1,5 +1,5 @@
-#!/usr/bin/env ruby -wKU
-require File.dirname(__FILE__) + '/../lib/soql'
+#!/usr/bin/env ruby -wU
+require File.dirname(__FILE__) + '/../lib/soql-parser'
 require 'readline'
 
 PARSER = SOQLParser::Parser.new
