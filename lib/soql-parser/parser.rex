@@ -131,7 +131,6 @@ rule
             {BLANK}       # no action
 
 # tokens
-            <>            { [:not_equals_operator, text] }
             !=            { [:not_equals_operator, text] }
             =             { [:equals_operator, text] }
             <=            { [:less_than_or_equals_operator, text] }

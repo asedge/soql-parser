@@ -50,7 +50,7 @@ class TestParser < Minitest::Test
   end
 
   def test_not
-    assert_soql 'SELECT Id FROM User WHERE Id <> 1', 'SELECT Id FROM User WHERE NOT Id = 1'
+    assert_soql 'SELECT Id FROM User WHERE Id != 1', 'SELECT Id FROM User WHERE NOT Id = 1'
     assert_soql 'SELECT Id FROM User WHERE Id NOT IN (1, 2, 3)', 'SELECT Id FROM User WHERE NOT Id IN (1, 2, 3)'
     assert_soql "SELECT Id FROM User WHERE Name NOT LIKE 'A%'", "SELECT Id FROM User WHERE NOT Name LIKE 'A%'"
   end
@@ -98,8 +98,7 @@ class TestParser < Minitest::Test
   end
 
   def test_not_equals
-    assert_soql 'SELECT Id FROM User WHERE Id <> 1', 'SELECT Id FROM User WHERE Id != 1'
-    assert_understands 'SELECT Id FROM User WHERE Id <> 1'
+    assert_understands 'SELECT Id FROM User WHERE Id != 1'
   end
 
   def test_equals

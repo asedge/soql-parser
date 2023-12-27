@@ -160,7 +160,7 @@ module SOQLParser
 
     def visit_Equals(o)
       if @negated
-        comparison('<>', o)
+        comparison('!=', o)
       else
         comparison('=', o)
       end
