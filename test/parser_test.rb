@@ -55,6 +55,16 @@ class TestParser < Minitest::Test
     assert_soql "SELECT Id FROM User WHERE Name NOT LIKE 'A%'", "SELECT Id FROM User WHERE NOT Name LIKE 'A%'"
   end
 
+  def test_equal_to_null
+    assert_understands 'SELECT Id FROM User WHERE deleted_at = NULL'
+    assert_soql 'SELECT Id FROM User WHERE deleted_at = NULL', 'SELECT Id FROM User WHERE deleted_at = null'
+  end
+
+  def test_not_equal_to_null
+    assert_understands 'SELECT Id FROM User WHERE deleted_at != NULL'
+    assert_soql 'SELECT Id FROM User WHERE deleted_at != NULL', 'SELECT Id FROM User WHERE deleted_at != null'
+  end
+
   def test_is_not_null
     assert_understands 'SELECT Id FROM User WHERE deleted_at IS NOT NULL'
   end
