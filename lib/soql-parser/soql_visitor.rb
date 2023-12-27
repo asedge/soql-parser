@@ -296,7 +296,8 @@ module SOQLParser
     end
 
     def comparison(operator, o)
-      [visit(o.left), operator, visit(o.right)].join(' ')
+      c = [visit(o.left), operator, visit(o.right)].join(' ')
+      o.parentheses ? "(#{c})" : c
     end
 
     def search_condition(operator, o)

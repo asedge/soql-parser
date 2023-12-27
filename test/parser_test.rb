@@ -224,6 +224,7 @@ class TestParser < Minitest::Test
   def test_child_queries
     assert_understands %q(SELECT Id, (SELECT Name FROM Opportunity__r) FROM Account WHERE Id = '12345')
     assert_understands %q(SELECT Id, Bar_Id__c, (SELECT Id, QuotaId, (SELECT Id, Name, Email FROM ClubMembers__r) FROM PrezClubs__r) FROM Quota__c WHERE (Bar_Id__c = '123'))
+    assert_understands %q(SELECT Id, Bar_Id__c, (SELECT Id, QuotaId, (SELECT Id, Name, Email FROM ClubMembers__r) FROM PrezClubs__r) FROM Quota__c WHERE ((Bar_Id__c = '123') AND (Id = '456')))
   end
 
  # def test_escaped_characters

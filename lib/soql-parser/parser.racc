@@ -142,6 +142,14 @@ rule
     | row_value_constructor greater_than_operator row_value_constructor { result = SOQLParser::Statement::Greater.new(val[0], val[2]) }
     | row_value_constructor less_than_or_equals_operator row_value_constructor { result = SOQLParser::Statement::LessOrEquals.new(val[0], val[2]) }
     | row_value_constructor greater_than_or_equals_operator row_value_constructor { result = SOQLParser::Statement::GreaterOrEquals.new(val[0], val[2]) }
+    # TODO: Remove when ActiveForce depends on this gem for building SOQL queries.  The above rules will convert something like `WHERE (Id = '1234')`
+    # to `WHERE Id = '1234'`, which ends up in identical SOQL, so we hacked in some way to save the parenthesis if present.
+    | left_paren row_value_constructor equals_operator row_value_constructor right_paren { result = SOQLParser::Statement::Equals.new(val[1], val[3], true) }
+    | left_paren row_value_constructor not_equals_operator row_value_constructor right_paren { result = SOQLParser::Statement::Not.new(SOQLParser::Statement::Equals.new(val[1], val[3], true)) }
+    | left_paren row_value_constructor less_than_operator row_value_constructor right_paren { result = SOQLParser::Statement::Less.new(val[1], val[3], true) }
+    | left_paren row_value_constructor greater_than_operator row_value_constructor right_paren { result = SOQLParser::Statement::Greater.new(val[1], val[3], true) }
+    | left_paren row_value_constructor less_than_or_equals_operator row_value_constructor right_paren { result = SOQLParser::Statement::LessOrEquals.new(val[1], val[3], true) }
+    | left_paren row_value_constructor greater_than_or_equals_operator row_value_constructor right_paren { result = SOQLParser::Statement::GreaterOrEquals.new(val[1], val[3], true) }
 
   row_value_constructor
     : row_value_constructor_element
