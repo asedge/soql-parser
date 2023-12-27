@@ -183,6 +183,7 @@ class SOQLParser::Parser < Racc::Parser
     LIKE
     IS
     NULL
+    null
     NULLS
     COUNT
     AVG

@@ -105,7 +105,9 @@ rule
     : row_value_constructor IS NOT NULL { result = SOQLParser::Statement::Not.new(SOQLParser::Statement::Is.new(val[0], SOQLParser::Statement::Null.new)) }
     | row_value_constructor IS NULL { result = SOQLParser::Statement::Is.new(val[0], SOQLParser::Statement::Null.new) }
     | row_value_constructor not_equals_operator NULL { result = SOQLParser::Statement::Not.new(SOQLParser::Statement::Equals.new(val[0], SOQLParser::Statement::Null.new)) }
+    | row_value_constructor not_equals_operator null { result = SOQLParser::Statement::Not.new(SOQLParser::Statement::Equals.new(val[0], SOQLParser::Statement::Null.new)) }
     | row_value_constructor equals_operator NULL { result = SOQLParser::Statement::Equals.new(val[0], SOQLParser::Statement::Null.new) }
+    | row_value_constructor equals_operator null { result = SOQLParser::Statement::Equals.new(val[0], SOQLParser::Statement::Null.new) }
 
 # constraints
   table_name

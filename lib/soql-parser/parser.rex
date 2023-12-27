@@ -18,6 +18,7 @@ inner
     LIKE
     IS
     NULL
+    null
     NULLS
     COUNT
     AVG
