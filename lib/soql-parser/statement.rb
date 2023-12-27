@@ -258,7 +258,7 @@ module SOQLParser
     class InValueList < Node
 
       def initialize(values)
-        @values = values
+        @values = [values].flatten # in case values only has 1 element.
       end
 
       attr_accessor :values
