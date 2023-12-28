@@ -11,7 +11,7 @@ require File.dirname(__FILE__) + '/parser.rex.rb'
 module SOQLParser
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.racc/module_eval...', 'parser.racc', 292)
+module_eval(<<'...end parser.racc/module_eval...', 'parser.racc', 293)
 
 def self.parse(soql)
   new.scan_str(soql)
@@ -22,28 +22,28 @@ end
 racc_action_table = [
      3,    57,    77,    77,   111,    61,    13,    37,    61,   187,
     62,    63,     3,   188,     4,   221,    36,   178,   221,    40,
-    41,    64,    65,  -107,    81,    80,     6,     3,   115,   -51,
+    41,    64,    65,  -108,    81,    80,     6,     3,   115,   -51,
     48,    40,    41,    13,    37,    28,    29,    30,    31,    32,
-   149,  -132,  -131,    36,   121,    86,    61,    43,    44,    45,
+   149,  -133,  -132,    36,   121,    86,    61,    43,    44,    45,
     46,    47,   162,    61,     3,    57,   180,   181,    40,    41,
     13,    37,    28,    29,    30,    31,    32,   233,   234,    50,
     36,   239,   240,    54,    43,    44,    45,    46,    47,    59,
-    61,    70,     8,    71,    72,    40,    41,    13,    37,    28,
-    29,    30,    31,    32,    73,    74,    75,    36,    76,    78,
-    79,    43,    44,    45,    46,    47,    83,    84,    85,    57,
-    88,    89,    40,    41,    13,    37,    28,    29,    30,    31,
-    32,    90,    96,    61,    68,   108,   112,   114,    43,    44,
-    45,    46,    47,   132,    54,    61,    57,   135,   136,    40,
-    41,    13,    37,    28,    29,    30,    31,    32,   137,   138,
-   139,    36,   140,   141,   142,    43,    44,    45,    46,    47,
-   144,   145,   149,     8,   160,   166,    40,    41,    13,    37,
-    28,    29,    30,    31,    32,   171,    90,   182,    36,    47,
-    61,   202,    43,    44,    45,    46,    47,   203,   149,   204,
-    57,   -51,   160,    40,    41,    13,    37,    28,    29,    30,
-    31,    32,   182,    47,   215,    36,   216,   171,   223,    43,
-    44,    45,    46,    47,   224,   225,   226,    57,   227,   228,
-    40,    41,    13,    37,    28,    29,    30,    31,    32,   229,
-   230,   231,    36,   238,   nil,   nil,    43,    44,    45,    46,
+    61,  -100,     8,    70,    71,    40,    41,    13,    37,    28,
+    29,    30,    31,    32,    72,    73,    74,    36,    75,    76,
+    78,    43,    44,    45,    46,    47,    79,    83,    84,    57,
+    85,    88,    40,    41,    13,    37,    28,    29,    30,    31,
+    32,    89,    90,    96,    68,    61,   108,   112,    43,    44,
+    45,    46,    47,   114,   132,    54,    57,    61,   135,    40,
+    41,    13,    37,    28,    29,    30,    31,    32,   136,   137,
+   138,    36,   139,   140,   141,    43,    44,    45,    46,    47,
+   142,   144,   145,     8,   149,   160,    40,    41,    13,    37,
+    28,    29,    30,    31,    32,   166,   171,    90,    36,   182,
+    47,    61,    43,    44,    45,    46,    47,   202,   203,   149,
+    57,   204,  -100,    40,    41,    13,    37,    28,    29,    30,
+    31,    32,   -51,   160,   182,    36,    47,   215,   216,    43,
+    44,    45,    46,    47,   171,   223,   224,    57,   225,   226,
+    40,    41,    13,    37,    28,    29,    30,    31,    32,   227,
+   228,   229,    36,   230,   231,   238,    43,    44,    45,    46,
     47,   nil,   nil,   nil,    57,   nil,   nil,    40,    41,    13,
     37,    28,    29,    30,    31,    32,   nil,   nil,   nil,    36,
    nil,   nil,   nil,    43,    44,    45,    46,    47,   nil,   nil,
@@ -135,22 +135,22 @@ racc_action_check = [
      8,     8,   135,   135,   182,   182,   150,   150,   115,   115,
    182,   182,   115,   115,   115,   115,   115,   219,   219,     5,
    182,   238,   238,     6,   115,   115,   115,   115,   115,    10,
-    11,    25,     3,    28,    29,   182,   182,     3,     3,   182,
-   182,   182,   182,   182,    30,    31,    32,     3,    33,    37,
-    38,   182,   182,   182,   182,   182,    49,    50,    51,    18,
-    54,    55,     3,     3,    18,    18,     3,     3,     3,     3,
-     3,    58,    69,    70,    18,    77,    80,    82,     3,     3,
-     3,     3,     3,    84,    85,    86,    57,    88,    98,    18,
-    18,    57,    57,    18,    18,    18,    18,    18,   100,   101,
-   102,    57,   103,   104,   105,    18,    18,    18,    18,    18,
-   113,   114,   116,    59,   119,   143,    57,    57,    59,    59,
-    57,    57,    57,    57,    57,   145,   148,   151,    59,   152,
-   162,   165,    57,    57,    57,    57,    57,   166,   167,   168,
-    62,   171,   179,    59,    59,    62,    62,    59,    59,    59,
-    59,    59,   180,   181,   187,    62,   202,   204,   205,    59,
-    59,    59,    59,    59,   206,   207,   208,    63,   209,   210,
-    62,    62,    63,    63,    62,    62,    62,    62,    62,   213,
-   214,   217,    63,   232,   nil,   nil,    62,    62,    62,    62,
+    11,    21,     3,    25,    28,   182,   182,     3,     3,   182,
+   182,   182,   182,   182,    29,    30,    31,     3,    32,    33,
+    37,   182,   182,   182,   182,   182,    38,    49,    50,    18,
+    51,    54,     3,     3,    18,    18,     3,     3,     3,     3,
+     3,    55,    58,    69,    18,    70,    77,    80,     3,     3,
+     3,     3,     3,    82,    84,    85,    57,    86,    88,    18,
+    18,    57,    57,    18,    18,    18,    18,    18,    98,   100,
+   101,    57,   102,   103,   104,    18,    18,    18,    18,    18,
+   105,   113,   114,    59,   116,   119,    57,    57,    59,    59,
+    57,    57,    57,    57,    57,   143,   145,   148,    59,   151,
+   152,   162,    57,    57,    57,    57,    57,   165,   166,   167,
+    62,   168,   170,    59,    59,    62,    62,    59,    59,    59,
+    59,    59,   171,   179,   180,    62,   181,   187,   202,    59,
+    59,    59,    59,    59,   204,   205,   206,    63,   207,   208,
+    62,    62,    63,    63,    62,    62,    62,    62,    62,   209,
+   210,   213,    63,   214,   217,   232,    62,    62,    62,    62,
     62,   nil,   nil,   nil,    64,   nil,   nil,    63,    63,    64,
     64,    63,    63,    63,    63,    63,   nil,   nil,   nil,    64,
    nil,   nil,   nil,    63,    63,    63,    63,    63,   nil,   nil,
@@ -236,56 +236,56 @@ racc_action_check = [
 racc_action_pointer = [
     10,    14,    20,    79,    30,    59,    65,   nil,    -2,   nil,
     74,    72,   nil,    20,   nil,   559,   -23,   -14,   106,   nil,
-   nil,   nil,   nil,   nil,   nil,    72,   nil,   nil,    80,    81,
-    91,    92,    93,    95,   nil,   nil,    -7,    81,    52,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,   nil,   -29,   nil,    94,
-    96,   103,   nil,    38,   101,   107,   nil,   133,   117,   160,
-   nil,   nil,   187,   214,   241,   268,   nil,   nil,    -6,   104,
-   115,   295,   322,   349,   376,   403,   430,   107,   nil,   -14,
-    73,   nil,   114,   457,   125,   126,   127,   nil,   129,   nil,
-   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   134,   nil,
-   144,   145,   146,   148,   149,   149,   nil,   nil,   nil,   nil,
-   nil,   nil,   nil,   145,   147,    25,   135,   nil,   604,   136,
+   nil,    72,   nil,   nil,   nil,    74,   nil,   nil,    81,    91,
+    92,    93,    95,    96,   nil,   nil,    -7,    82,    58,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   -29,   nil,    95,
+    97,   105,   nil,    38,   102,   117,   nil,   133,   118,   160,
+   nil,   nil,   187,   214,   241,   268,   nil,   nil,    -6,   105,
+   117,   295,   322,   349,   376,   403,   430,   108,   nil,   -14,
+    74,   nil,   120,   457,   126,   127,   129,   nil,   130,   nil,
+   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   144,   nil,
+   145,   146,   148,   149,   150,   155,   nil,   nil,   nil,   nil,
+   nil,   nil,   nil,   146,   148,    25,   137,   nil,   604,   137,
    nil,   484,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
    nil,   nil,   nil,   nil,   nil,    45,   nil,   nil,   nil,   nil,
-   nil,   nil,   511,   149,   538,   167,   817,    13,   172,   565,
-    36,   174,   126,   -10,   604,   643,   670,   697,   724,   751,
-   778,   nil,   172,   nil,   nil,   164,   173,   161,   184,   nil,
-   nil,   182,   817,   856,   883,   910,   937,   964,   nil,   164,
-   199,   150,    52,   nil,   nil,   nil,   nil,   181,   nil,   nil,
+   nil,   nil,   511,   159,   538,   168,   817,    13,   173,   565,
+    36,   176,   127,   -10,   604,   643,   670,   697,   724,   751,
+   778,   nil,   173,   nil,   nil,   170,   174,   162,   186,   nil,
+   183,   193,   817,   856,   883,   910,   937,   964,   nil,   175,
+   201,   153,    52,   nil,   nil,   nil,   nil,   184,   nil,   nil,
    nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
-   nil,   nil,   188,    -3,   199,   204,   210,   211,   212,   214,
-   215,   nil,   nil,   225,   225,   nil,   nil,   226,   nil,    24,
+   nil,   nil,   190,    -3,   206,   211,   212,   214,   215,   225,
+   226,   nil,   nil,   227,   228,   nil,   nil,   229,   nil,    24,
    nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
-   991,     0,   188,   nil,   nil,   nil,   nil,   nil,    25,   nil,
+   991,     0,   190,   nil,   nil,   nil,   nil,   nil,    25,   nil,
    nil ]
 
 racc_action_default = [
-  -143,  -143,  -143,  -143,  -143,   -21,  -143,    -2,  -143,    -5,
-    -7,    -9,   -10,  -135,   -80,   -81,   -84,   -87,  -143,   -89,
-   -90,   -91,   -92,   -94,   -95,  -143,   -98,   -99,  -143,  -143,
-  -143,  -143,  -143,  -143,  -122,  -123,  -127,  -143,  -143,  -129,
-  -133,  -134,  -136,  -137,  -138,  -139,  -140,  -143,   241,   -23,
-  -143,   -11,   -13,   -16,   -51,  -143,    -4,  -143,  -143,  -143,
-    -8,  -135,  -143,  -143,  -143,  -143,   -88,   -96,  -127,  -143,
-  -143,  -143,  -143,  -143,  -143,  -143,  -143,  -125,  -126,  -143,
-  -143,  -142,   -25,  -143,  -143,  -143,  -143,   -15,  -143,    -3,
-   -93,    -6,   -82,   -83,   -85,   -86,  -131,   -97,  -143,  -101,
-  -143,  -143,  -143,  -143,  -143,  -143,  -109,  -110,  -124,  -128,
-  -130,  -132,  -141,   -30,  -143,  -143,   -24,   -36,  -143,   -52,
-   -54,  -143,   -57,   -58,   -59,   -61,   -62,   -63,   -64,   -77,
-   -78,   -79,   -22,   -12,   -14,   -19,  -100,  -102,  -103,  -104,
-  -105,  -106,  -143,   -32,  -143,  -143,  -143,  -143,   -79,  -143,
-  -143,  -143,  -143,  -143,  -143,  -143,  -143,  -143,  -143,  -143,
-  -143,   -56,  -143,   -18,  -108,   -34,  -143,   -31,   -26,   -28,
-   -29,  -135,  -143,  -143,  -143,  -143,  -143,  -143,   -60,   -53,
-  -143,  -143,  -143,   -20,   -38,   -39,   -44,  -143,   -46,   -47,
+  -144,  -144,  -144,  -144,  -144,   -21,  -144,    -2,  -144,    -5,
+    -7,    -9,   -10,  -136,   -80,   -81,   -84,   -87,  -144,   -89,
+   -90,   -91,   -92,   -94,   -95,  -144,   -98,   -99,  -144,  -144,
+  -144,  -144,  -144,  -144,  -123,  -124,  -128,  -144,  -144,  -130,
+  -134,  -135,  -137,  -138,  -139,  -140,  -141,  -144,   241,   -23,
+  -144,   -11,   -13,   -16,   -51,  -144,    -4,  -144,  -144,  -144,
+    -8,  -136,  -144,  -144,  -144,  -144,   -88,   -96,  -128,  -144,
+  -144,  -144,  -144,  -144,  -144,  -144,  -144,  -126,  -127,  -144,
+  -144,  -143,   -25,  -144,  -144,  -144,  -144,   -15,  -144,    -3,
+   -93,    -6,   -82,   -83,   -85,   -86,  -132,   -97,  -144,  -102,
+  -144,  -144,  -144,  -144,  -144,  -144,  -110,  -111,  -125,  -129,
+  -131,  -133,  -142,   -30,  -144,  -144,   -24,   -36,  -144,   -52,
+   -54,  -144,   -57,   -58,   -59,   -61,   -62,   -63,   -64,   -77,
+   -78,   -79,   -22,   -12,   -14,   -19,  -101,  -103,  -104,  -105,
+  -106,  -107,  -144,   -32,  -144,  -144,  -144,  -144,   -79,  -144,
+  -144,  -144,  -144,  -144,  -144,  -144,  -144,  -144,  -144,  -144,
+  -144,   -56,  -144,   -18,  -109,   -34,  -144,   -31,   -26,   -28,
+   -29,  -136,  -144,  -144,  -144,  -144,  -144,  -144,   -60,   -53,
+  -144,  -144,  -144,   -20,   -38,   -39,   -44,  -144,   -46,   -47,
    -48,   -66,   -49,   -50,   -65,   -67,   -68,   -69,   -70,   -55,
-   -17,    -1,  -143,  -143,  -143,   -66,   -65,   -67,   -68,   -69,
-   -70,   -37,   -43,  -143,   -42,   -45,   -35,   -33,  -112,  -116,
-  -114,  -115,   -27,   -72,   -71,   -73,   -74,   -75,   -76,   -40,
-  -143,  -143,  -119,  -117,  -118,   -41,  -111,  -113,  -143,  -120,
-  -121 ]
+   -17,    -1,  -144,  -144,  -144,   -66,   -65,   -67,   -68,   -69,
+   -70,   -37,   -43,  -144,   -42,   -45,   -35,   -33,  -113,  -117,
+  -115,  -116,   -27,   -72,   -71,   -73,   -74,   -75,   -76,   -40,
+  -144,  -144,  -120,  -118,  -119,   -41,  -112,  -114,  -144,  -121,
+  -122 ]
 
 racc_goto_table = [
     11,    60,    52,    12,    53,    58,   116,   169,   106,     9,
@@ -456,51 +456,52 @@ racc_reduce_table = [
   3, 79, :_reduce_97,
   1, 79, :_reduce_none,
   1, 106, :_reduce_none,
-  4, 103, :_reduce_100,
-  3, 103, :_reduce_101,
-  4, 103, :_reduce_102,
+  1, 106, :_reduce_none,
+  4, 103, :_reduce_101,
+  3, 103, :_reduce_102,
   4, 103, :_reduce_103,
   4, 103, :_reduce_104,
   4, 103, :_reduce_105,
   4, 103, :_reduce_106,
+  4, 103, :_reduce_107,
   1, 107, :_reduce_none,
   3, 108, :_reduce_none,
   1, 108, :_reduce_none,
   1, 109, :_reduce_none,
-  3, 80, :_reduce_111,
+  3, 80, :_reduce_112,
   1, 80, :_reduce_none,
-  3, 110, :_reduce_113,
+  3, 110, :_reduce_114,
   1, 111, :_reduce_none,
-  1, 111, :_reduce_115,
+  1, 111, :_reduce_116,
   0, 112, :_reduce_none,
-  1, 112, :_reduce_117,
   1, 112, :_reduce_118,
+  1, 112, :_reduce_119,
   0, 113, :_reduce_none,
-  2, 113, :_reduce_120,
   2, 113, :_reduce_121,
+  2, 113, :_reduce_122,
   1, 105, :_reduce_none,
   1, 105, :_reduce_none,
-  3, 114, :_reduce_124,
-  2, 114, :_reduce_125,
+  3, 114, :_reduce_125,
   2, 114, :_reduce_126,
-  1, 114, :_reduce_127,
-  3, 115, :_reduce_128,
+  2, 114, :_reduce_127,
+  1, 114, :_reduce_128,
+  3, 115, :_reduce_129,
   1, 116, :_reduce_none,
   1, 117, :_reduce_none,
-  2, 118, :_reduce_131,
-  1, 118, :_reduce_132,
-  1, 100, :_reduce_133,
+  2, 118, :_reduce_132,
+  1, 118, :_reduce_133,
   1, 100, :_reduce_134,
-  1, 71, :_reduce_135,
+  1, 100, :_reduce_135,
+  1, 71, :_reduce_136,
   1, 97, :_reduce_none,
-  1, 97, :_reduce_137,
   1, 97, :_reduce_138,
   1, 97, :_reduce_139,
   1, 97, :_reduce_140,
-  3, 87, :_reduce_141,
-  2, 87, :_reduce_142 ]
+  1, 97, :_reduce_141,
+  3, 87, :_reduce_142,
+  2, 87, :_reduce_143 ]
 
-racc_reduce_n = 143
+racc_reduce_n = 144
 
 racc_shift_n = 241
 
@@ -1186,56 +1187,56 @@ module_eval(<<'.,.,', 'parser.racc', 196)
 
 # reduce 99 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 203)
-  def _reduce_100(val, _values, result)
-     result = SOQLParser::Statement::Count.new(val[2])
-    result
-  end
-.,.,
+# reduce 100 omitted
 
 module_eval(<<'.,.,', 'parser.racc', 204)
   def _reduce_101(val, _values, result)
-     result = SOQLParser::Statement::Count.new(nil)
+     result = SOQLParser::Statement::Count.new(val[2])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 205)
   def _reduce_102(val, _values, result)
-     result = SOQLParser::Statement::Average.new(val[2])
+     result = SOQLParser::Statement::Count.new(nil)
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 206)
   def _reduce_103(val, _values, result)
-     result = SOQLParser::Statement::Maximum.new(val[2])
+     result = SOQLParser::Statement::Average.new(val[2])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 207)
   def _reduce_104(val, _values, result)
-     result = SOQLParser::Statement::Minimum.new(val[2])
+     result = SOQLParser::Statement::Maximum.new(val[2])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 208)
   def _reduce_105(val, _values, result)
-     result = SOQLParser::Statement::Sum.new(val[2])
+     result = SOQLParser::Statement::Minimum.new(val[2])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 209)
   def _reduce_106(val, _values, result)
-     result = SOQLParser::Statement::Function.new(val[0], val[2])
+     result = SOQLParser::Statement::Sum.new(val[2])
     result
   end
 .,.,
 
-# reduce 107 omitted
+module_eval(<<'.,.,', 'parser.racc', 210)
+  def _reduce_107(val, _values, result)
+     result = SOQLParser::Statement::Function.new(val[0], val[2])
+    result
+  end
+.,.,
 
 # reduce 108 omitted
 
@@ -1243,180 +1244,182 @@ module_eval(<<'.,.,', 'parser.racc', 209)
 
 # reduce 110 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 223)
-  def _reduce_111(val, _values, result)
+# reduce 111 omitted
+
+module_eval(<<'.,.,', 'parser.racc', 224)
+  def _reduce_112(val, _values, result)
      result = Array(val[0]) + Array(val[2])
     result
   end
 .,.,
 
-# reduce 112 omitted
+# reduce 113 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 227)
-  def _reduce_113(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 228)
+  def _reduce_114(val, _values, result)
      result = SOQLParser::Statement::OrderColumn.new(val[0], val[1], val[2])
     result
   end
 .,.,
 
-# reduce 114 omitted
+# reduce 115 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 231)
-  def _reduce_115(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 232)
+  def _reduce_116(val, _values, result)
      result = SOQLParser::Statement::Integer.new(val[0])
     result
   end
 .,.,
 
-# reduce 116 omitted
+# reduce 117 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 235)
-  def _reduce_117(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 236)
+  def _reduce_118(val, _values, result)
      result = SOQLParser::Statement::Ascending.new
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 236)
-  def _reduce_118(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 237)
+  def _reduce_119(val, _values, result)
      result = SOQLParser::Statement::Descending.new
     result
   end
 .,.,
 
-# reduce 119 omitted
+# reduce 120 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 240)
-  def _reduce_120(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 241)
+  def _reduce_121(val, _values, result)
      result = SOQLParser::Statement::NullsFirst.new
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 241)
-  def _reduce_121(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 242)
+  def _reduce_122(val, _values, result)
      result = SOQLParser::Statement::NullsLast.new
     result
   end
 .,.,
 
-# reduce 122 omitted
-
 # reduce 123 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 249)
-  def _reduce_124(val, _values, result)
-     result = SOQLParser::Statement::Float.new("#{val[0]}.#{val[2]}".to_f)
-    result
-  end
-.,.,
+# reduce 124 omitted
 
 module_eval(<<'.,.,', 'parser.racc', 250)
   def _reduce_125(val, _values, result)
-     result = SOQLParser::Statement::Float.new(val[0])
+     result = SOQLParser::Statement::Float.new("#{val[0]}.#{val[2]}".to_f)
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 251)
   def _reduce_126(val, _values, result)
-     result = SOQLParser::Statement::Float.new("0.#{val[1]}".to_f)
+     result = SOQLParser::Statement::Float.new(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 252)
   def _reduce_127(val, _values, result)
+     result = SOQLParser::Statement::Float.new("0.#{val[1]}".to_f)
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.racc', 253)
+  def _reduce_128(val, _values, result)
      result = SOQLParser::Statement::Integer.new(val[0])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 255)
-  def _reduce_128(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 256)
+  def _reduce_129(val, _values, result)
      result = SOQLParser::Statement::ApproximateFloat.new(val[0], val[2])
     result
   end
 .,.,
 
-# reduce 129 omitted
-
 # reduce 130 omitted
 
-module_eval(<<'.,.,', 'parser.racc', 264)
-  def _reduce_131(val, _values, result)
+# reduce 131 omitted
+
+module_eval(<<'.,.,', 'parser.racc', 265)
+  def _reduce_132(val, _values, result)
      result = val[0].new(SOQLParser::Statement::Integer.new(val[1]))
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 265)
-  def _reduce_132(val, _values, result)
-     result = SOQLParser::Statement::Integer.new(val[0])
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'parser.racc', 268)
+module_eval(<<'.,.,', 'parser.racc', 266)
   def _reduce_133(val, _values, result)
-     result = SOQLParser::Statement::UnaryPlus
+     result = SOQLParser::Statement::Integer.new(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 269)
   def _reduce_134(val, _values, result)
+     result = SOQLParser::Statement::UnaryPlus
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.racc', 270)
+  def _reduce_135(val, _values, result)
      result = SOQLParser::Statement::UnaryMinus
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 273)
-  def _reduce_135(val, _values, result)
+module_eval(<<'.,.,', 'parser.racc', 274)
+  def _reduce_136(val, _values, result)
      result = SOQLParser::Statement::Column.new(val[0])
     result
   end
 .,.,
 
-# reduce 136 omitted
-
-module_eval(<<'.,.,', 'parser.racc', 278)
-  def _reduce_137(val, _values, result)
-     result = SOQLParser::Statement::DateTime.new(val[0])
-    result
-  end
-.,.,
+# reduce 137 omitted
 
 module_eval(<<'.,.,', 'parser.racc', 279)
   def _reduce_138(val, _values, result)
-     result = SOQLParser::Statement::Date.new(val[0])
+     result = SOQLParser::Statement::DateTime.new(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 280)
   def _reduce_139(val, _values, result)
-     result = SOQLParser::Statement::DateLiteral.new(val[0])
+     result = SOQLParser::Statement::Date.new(val[0])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 281)
   def _reduce_140(val, _values, result)
-     result = SOQLParser::Statement::DateLiteral.new(*val[0].split(':'))
+     result = SOQLParser::Statement::DateLiteral.new(val[0])
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.racc', 284)
+module_eval(<<'.,.,', 'parser.racc', 282)
   def _reduce_141(val, _values, result)
-     result = SOQLParser::Statement::String.new(val[1])
+     result = SOQLParser::Statement::DateLiteral.new(*val[0].split(':'))
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.racc', 285)
   def _reduce_142(val, _values, result)
+     result = SOQLParser::Statement::String.new(val[1])
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.racc', 286)
+  def _reduce_143(val, _values, result)
      result = SOQLParser::Statement::String.new('')
     result
   end

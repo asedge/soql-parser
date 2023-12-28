@@ -199,6 +199,7 @@ rule
 
   qualifier
     : table_name
+    | column_reference
 
   general_set_function
     : COUNT left_paren value_expression right_paren { result = SOQLParser::Statement::Count.new(val[2]) }
