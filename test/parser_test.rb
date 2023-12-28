@@ -83,12 +83,14 @@ class TestParser < Minitest::Test
 
   def test_not_in
     assert_understands 'SELECT Id FROM User WHERE Id NOT IN (1, 2, 3)'
+    assert_understands 'SELECT Id FROM User WHERE Id NOT IN (1, NULL)'
     assert_understands 'SELECT Id FROM User WHERE Id NOT IN (SELECT Id FROM User WHERE age = 18)'
   end
 
   def test_in
     assert_understands 'SELECT Id FROM User WHERE Id IN (1, 2, 3)'
     assert_understands 'SELECT Id FROM User WHERE Id IN (1)'
+    assert_understands 'SELECT Id FROM User WHERE Id IN (1, NULL)'
     assert_understands 'SELECT Id FROM User WHERE Id IN (SELECT Id FROM User WHERE age = 18)'
   end
 
