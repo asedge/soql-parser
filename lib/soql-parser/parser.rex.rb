@@ -57,7 +57,7 @@ class SOQLParser::Parser < Racc::Parser
           token = case @state
             when nil
           case
-                  when (text = @ss.scan(/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([-+][0-9]{2}:[0-9]{2}|Z)/i))
+                  when (text = @ss.scan(/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([-+\s+][0-9]{2}:[0-9]{2}|Z)/i))
                      action {                  [:datetime, text] }
 
                   when (text = @ss.scan(/[0-9]{4}-[0-9]{2}-[0-9]{2}/i))

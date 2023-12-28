@@ -106,7 +106,7 @@ macro
   HOURS     {DIGIT}{2}
   MINUTES   {DIGIT}{2}
   SECONDS   {DIGIT}{2}
-  OFFSET    ([-+]{DIGIT}{2}:{DIGIT}{2}|Z)
+  OFFSET    ([-+{BLANK}]{DIGIT}{2}:{DIGIT}{2}|Z)
   DATETIME  {DATE}T{HOURS}:{MINUTES}:{SECONDS}{OFFSET}
 
   IDENT   [a-zA-Z_][a-zA-Z0-9_]*
