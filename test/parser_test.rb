@@ -28,6 +28,8 @@ class TestParser < Minitest::Test
     assert_understands 'SELECT Id FROM User ORDER BY Name'
     assert_understands 'SELECT Id FROM User ORDER BY Name ASC'
     assert_understands 'SELECT Id FROM User ORDER BY Name DESC'
+    assert_understands 'SELECT Id FROM User ORDER BY User.Name DESC'
+    assert_understands 'SELECT Id FROM User u ORDER BY u.Reference.Name DESC'
   end
 
   def test_having

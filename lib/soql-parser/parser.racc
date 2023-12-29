@@ -225,7 +225,7 @@ rule
     : sort_key ordering_specification nulls_ordering_specification { result = SOQLParser::Statement::OrderColumn.new(val[0], val[1], val[2]) }
 
   sort_key
-    : column_name
+    : column_reference
     | unsigned_integer { result = SOQLParser::Statement::Integer.new(val[0]) }
 
   ordering_specification
