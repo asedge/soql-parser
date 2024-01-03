@@ -102,7 +102,7 @@ class TestStatement < Minitest::Test
   end
 
   def test_not_equals
-    assert_soql '1 <> 1', SOQLParser::Statement::Not.new(equals(int(1), int(1)))
+    assert_soql '1 != 1', SOQLParser::Statement::Not.new(equals(int(1), int(1)))
   end
 
   def test_equals

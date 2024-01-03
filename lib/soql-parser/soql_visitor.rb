@@ -160,7 +160,7 @@ module SOQLParser
 
     def visit_Equals(o)
       if @negated
-        comparison('<>', o)
+        comparison('!=', o)
       else
         comparison('=', o)
       end
@@ -296,7 +296,8 @@ module SOQLParser
     end
 
     def comparison(operator, o)
-      [visit(o.left), operator, visit(o.right)].join(' ')
+      c = [visit(o.left), operator, visit(o.right)].join(' ')
+      o.parentheses ? "(#{c})" : c
     end
 
     def search_condition(operator, o)

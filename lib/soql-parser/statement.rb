@@ -204,13 +204,15 @@ module SOQLParser
 
     class SearchCondition < Node
 
-      def initialize(left, right)
+      def initialize(left, right, parentheses=false)
         @left = left
         @right = right
+        @parentheses = parentheses
       end
 
       attr_accessor :left
       attr_accessor :right
+      attr_accessor :parentheses
 
     end
 
@@ -232,13 +234,15 @@ module SOQLParser
 
     class ComparisonPredicate < Node
 
-      def initialize(left, right)
+      def initialize(left, right, parentheses = false)
         @left = left
         @right = right
+        @parentheses = parentheses
       end
 
       attr_accessor :left
       attr_accessor :right
+      attr_accessor :parentheses
 
     end
 
@@ -254,7 +258,7 @@ module SOQLParser
     class InValueList < Node
 
       def initialize(values)
-        @values = values
+        @values = [values].flatten # in case values only has 1 element.
       end
 
       attr_accessor :values

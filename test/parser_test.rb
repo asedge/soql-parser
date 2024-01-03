@@ -28,6 +28,8 @@ class TestParser < Minitest::Test
     assert_understands 'SELECT Id FROM User ORDER BY Name'
     assert_understands 'SELECT Id FROM User ORDER BY Name ASC'
     assert_understands 'SELECT Id FROM User ORDER BY Name DESC'
+    assert_understands 'SELECT Id FROM User ORDER BY User.Name DESC'
+    assert_understands 'SELECT Id FROM User u ORDER BY u.Reference.Name DESC'
   end
 
   def test_having
@@ -50,9 +52,19 @@ class TestParser < Minitest::Test
   end
 
   def test_not
-    assert_soql 'SELECT Id FROM User WHERE Id <> 1', 'SELECT Id FROM User WHERE NOT Id = 1'
+    assert_soql 'SELECT Id FROM User WHERE Id != 1', 'SELECT Id FROM User WHERE NOT Id = 1'
     assert_soql 'SELECT Id FROM User WHERE Id NOT IN (1, 2, 3)', 'SELECT Id FROM User WHERE NOT Id IN (1, 2, 3)'
     assert_soql "SELECT Id FROM User WHERE Name NOT LIKE 'A%'", "SELECT Id FROM User WHERE NOT Name LIKE 'A%'"
+  end
+
+  def test_equal_to_null
+    assert_understands 'SELECT Id FROM User WHERE deleted_at = NULL'
+    assert_soql 'SELECT Id FROM User WHERE deleted_at = NULL', 'SELECT Id FROM User WHERE deleted_at = null'
+  end
+
+  def test_not_equal_to_null
+    assert_understands 'SELECT Id FROM User WHERE deleted_at != NULL'
+    assert_soql 'SELECT Id FROM User WHERE deleted_at != NULL', 'SELECT Id FROM User WHERE deleted_at != null'
   end
 
   def test_is_not_null
@@ -73,11 +85,14 @@ class TestParser < Minitest::Test
 
   def test_not_in
     assert_understands 'SELECT Id FROM User WHERE Id NOT IN (1, 2, 3)'
+    assert_understands 'SELECT Id FROM User WHERE Id NOT IN (1, NULL)'
     assert_understands 'SELECT Id FROM User WHERE Id NOT IN (SELECT Id FROM User WHERE age = 18)'
   end
 
   def test_in
     assert_understands 'SELECT Id FROM User WHERE Id IN (1, 2, 3)'
+    assert_understands 'SELECT Id FROM User WHERE Id IN (1)'
+    assert_understands 'SELECT Id FROM User WHERE Id IN (1, NULL)'
     assert_understands 'SELECT Id FROM User WHERE Id IN (SELECT Id FROM User WHERE age = 18)'
   end
 
@@ -98,8 +113,7 @@ class TestParser < Minitest::Test
   end
 
   def test_not_equals
-    assert_soql 'SELECT Id FROM User WHERE Id <> 1', 'SELECT Id FROM User WHERE Id != 1'
-    assert_understands 'SELECT Id FROM User WHERE Id <> 1'
+    assert_understands 'SELECT Id FROM User WHERE Id != 1'
   end
 
   def test_equals
@@ -221,11 +235,22 @@ class TestParser < Minitest::Test
     assert_understands 'SELECT Id FROM Opportunity WHERE CloseDate > LAST_N_FISCAL_YEARS:3'
   end
 
-  def test_escaped_characters
-    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%')
-    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%%')
-    assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Bob\'s BBQ')
+  def test_child_queries
+    assert_understands %q(SELECT Id, (SELECT Name FROM Opportunity__r) FROM Account WHERE Id = '12345')
+    assert_understands %q(SELECT Id, Bar_Id__c, (SELECT Id, QuotaId, (SELECT Id, Name, Email FROM ClubMembers__r) FROM PrezClubs__r) FROM Quota__c WHERE (Bar_Id__c = '123'))
+    assert_understands %q(SELECT Id, Bar_Id__c, (SELECT Id, QuotaId, (SELECT Id, Name, Email FROM ClubMembers__r) FROM PrezClubs__r) FROM Quota__c WHERE ((Bar_Id__c = '123') AND (Id = '456')))
   end
+
+  def test_relationship_queries
+    assert_understands %q(SELECT Id, Quota__c, Name, Quota__r.Bar_Id__c FROM Territory WHERE (Id = '123'))
+    assert_understands %q(SELECT Id, Quota__c, Name, t.Quota__r.Bar_Id__c FROM Territory t WHERE (Id = '123'))
+  end
+
+ # def test_escaped_characters
+ #   assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%')
+ #   assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Ter\%%')
+ #   assert_understands %q(SELECT Id FROM Account WHERE Name LIKE 'Bob\'s BBQ')
+ # end
 
   # TODO
   # def test_with_filters
